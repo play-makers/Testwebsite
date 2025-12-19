@@ -67,19 +67,22 @@ function getVisibleCards() {
 }
 
 function getMaxSlide() {
-  return Math.max(0, totalSlides - getVisibleCards());
+  const cards = document.querySelectorAll(".cert-track .cert-card");
+  return Math.max(0, cards.length - getVisibleCards());
 }
 
 function updateCarousel() {
-  const cardWidth = certCards[0]?.offsetWidth || 0;
+  const cards = document.querySelectorAll(".cert-track .cert-card");
+  if (!cards.length || !certTrack) return;
+
+  const cardWidth = cards[0].offsetWidth;
   const gap = 30;
   const offset = currentSlide * (cardWidth + gap);
 
-  if (certTrack) {
-    certTrack.style.transform = `translateX(-${offset}px)`;
-  }
+  certTrack.style.transform = `translateX(-${offset}px)`;
 
   // Update indicators
+  const indicators = document.querySelectorAll(".indicator");
   indicators.forEach((ind, index) => {
     ind.classList.toggle("active", index === currentSlide);
   });
@@ -246,36 +249,6 @@ function toggleExpand(button) {
     button.querySelector("span").textContent = "Show Less";
   }
 }
-
-// Contact form handling (front-end only - shows alert)
-const contactForm = document.getElementById("contactForm");
-
-contactForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const subject = document.getElementById("subject").value;
-  const message = document.getElementById("message").value;
-
-  // Create mailto link as fallback since there's no backend
-  const mailtoLink = `mailto:khalidchafi2385@gmail.com?subject=${encodeURIComponent(
-    subject
-  )}&body=${encodeURIComponent(
-    `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-  )}`;
-
-  // Show success message
-  alert(
-    "Thank you for your message! Your email client will open to send the message."
-  );
-
-  // Open email client
-  window.location.href = mailtoLink;
-
-  // Reset form
-  contactForm.reset();
-});
 
 // Active navigation highlight on scroll
 const sections = document.querySelectorAll("section[id]");
