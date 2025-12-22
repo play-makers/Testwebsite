@@ -413,6 +413,29 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 });
 
+// Experience Section Expand/Collapse
+window.toggleExpand = function(btn) {
+  const content = btn.previousElementSibling;
+  const isExpanded = content.classList.contains("expanded");
+  
+  // Toggle expanded class
+  content.classList.toggle("expanded");
+  
+  // Update button text and icon
+  const span = btn.querySelector("span");
+  const icon = btn.querySelector("i");
+  
+  if (!isExpanded) {
+    span.textContent = "Read Less";
+    icon.classList.remove("fa-chevron-down");
+    icon.classList.add("fa-chevron-up");
+  } else {
+    span.textContent = "Read More";
+    icon.classList.remove("fa-chevron-up");
+    icon.classList.add("fa-chevron-down");
+  }
+};
+
 // Console welcome message
 console.log(
   "%c Welcome to Khalid Chefi's Portfolio! ",
