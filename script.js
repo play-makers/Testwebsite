@@ -1,3 +1,7 @@
+import { inject } from "https://cdn.jsdelivr.net/npm/@vercel/analytics/+esm";
+
+inject();
+
 // Loading Animation
 window.addEventListener("load", () => {
   const loader = document.getElementById("loader");
@@ -29,9 +33,7 @@ const themeIcon = themeToggle.querySelector("i");
 
 // Check for saved theme preference or default to light
 const savedTheme = localStorage.getItem("theme") || "light";
-// Apply theme attribute to both html and body to ensure mobile styles pick it up
 document.documentElement.setAttribute("data-theme", savedTheme);
-document.body.setAttribute("data-theme", savedTheme);
 updateThemeIcon(savedTheme);
 
 themeToggle.addEventListener("click", () => {
@@ -39,7 +41,6 @@ themeToggle.addEventListener("click", () => {
   const newTheme = currentTheme === "dark" ? "light" : "dark";
 
   document.documentElement.setAttribute("data-theme", newTheme);
-  document.body.setAttribute("data-theme", newTheme);
   localStorage.setItem("theme", newTheme);
   updateThemeIcon(newTheme);
 });
@@ -87,7 +88,7 @@ function updateCarousel() {
   if (!cards.length || !certTrack) return;
 
   const cardWidth = cards[0].offsetWidth;
-  const gap = window.innerWidth < 768 ? 20 : 30;
+  const gap = 30;
   const offset = currentSlide * (cardWidth + gap);
 
   certTrack.style.transform = `translateX(-${offset}px)`;
